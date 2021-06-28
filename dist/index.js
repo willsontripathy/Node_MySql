@@ -4,21 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var mysql_1 = __importDefault(require("mysql"));
+var router_1 = require("./router");
+var branch_routes_1 = require("./router/branch.routes");
 var app = express_1.default();
 app.use(express_1.default.json());
-var connection = mysql_1.default.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'employee',
-    password: 'guduKuna@5152'
-});
-connection.query('SELECT * FROM tbl_employee', function (err, result) {
-    if (err) {
-        console.log(err);
-    }
-    console.log(result);
-});
+app.use('/employee', router_1.router);
+app.use('/branch', branch_routes_1.branchRouter);
 app.listen(3000, function () {
     console.log('Listining...');
 });

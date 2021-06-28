@@ -1,22 +1,12 @@
 import express from 'express';
-import mysql from 'mysql';
+import { router } from './router';
+import {branchRouter} from './router/branch.routes'
 
 const app = express();
 app.use(express.json());
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'employee',
-    password: 'guduKuna@5152'
-});
-
-connection.query('SELECT * FROM tbl_employee',(err, result)=>{
-    if(err){
-        console.log(err);
-    }
-    console.log(result);
-})
+app.use('/employee',router);
+app.use('/branch', branchRouter);
 
 app.listen(3000,()=>{
     console.log('Listining...');
